@@ -12,7 +12,7 @@ app.use("/users", usersRoute);
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("DB connnected successfully"))
-  .catch((err) => console.log("Error connecting to Mongo"));
+  .catch((err) => console.log("Error connecting to Mongo", err.message));
 
 app.get("/", (req, res) => {
   res.send("🔥🔥Welcome to the Kolynz😎 blog API 🔥🔥");
