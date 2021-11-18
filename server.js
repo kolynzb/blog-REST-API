@@ -2,12 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const usersRoute = require("./Routes/user");
+const authRoute = require("./Routes/auth");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
-app.use("/users", usersRoute);
+app.use("/api/v1/users", usersRoute);
+app.use("/api/v1", authRoute);
 
 mongoose
   .connect(process.env.MONGODB_URL)

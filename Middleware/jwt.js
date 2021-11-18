@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-  const authHeader = req.headers["Authorization"];
+  const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(" ")[1];
   token
     ? jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
@@ -29,7 +29,7 @@ const verifyAccessTokenAndAuth = (req, res, next) => {
 };
 
 const generateAccessToken = (user) => {
-  jwt.sign(user, process.env.JWT_SECRET_KEY, { expiresIn: "1d" });
+  return jwt.sign(user, process.env.JWT_SECRET_KEY, { expiresIn: "1d" });
 };
 
 module.exports = {

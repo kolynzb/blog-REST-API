@@ -6,7 +6,6 @@ const {
   addUser,
   updateUser,
 } = require("../controllers/userController");
-
 const {
   verifyToken,
   verifyAccessTokenAndAuth,
@@ -17,8 +16,6 @@ route.get("/", verifyToken, getAllUsers);
 route.get("/:id", verifyToken, getUser);
 route.delete("/:id", verifyAccessTokenAndAuth, deleteUser);
 route.put("/:id", verifyAccessTokenAndAuth, updateUser);
-route.post("/", verifyAccessTokenAndAuth, addUser);
-//register & login
-// route.put("/reister",)
+route.post("/", verifyAccessTokenAndAdmin, addUser);
 
 module.exports = route;

@@ -1,6 +1,6 @@
 const User = require("../Models/User");
 const Users = require("../Models/User");
-
+const { updateCheck } = require("../helpers/validate");
 const getAllUsers = async (req, res) => {
   try {
     const users = await Users.find();
@@ -12,7 +12,8 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const user = await Users.findById(req.params.id);
-    res.status(200).json(user);
+    const { password, ...others } = user._doc;
+    res.status(200).json(others);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -25,6 +26,7 @@ const deleteUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 const addUser = async (req, res) => {
   try {
     const newUser = await new User(req.body);
@@ -35,6 +37,8 @@ const addUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+  const { error } = updateCheck(req.body);
+  if (error) return res.status(401).json({ message: error.message });
   try {
     const newUser = await User.findByIdAndUpdate(
       req.params.id,

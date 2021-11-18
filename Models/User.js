@@ -26,7 +26,6 @@ const userSchema = new mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      required: true,
     },
     isAdmin: {
       type: Boolean,
